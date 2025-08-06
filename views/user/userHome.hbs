@@ -1,0 +1,23 @@
+<!-- Navbar -- >
+<link rel="stylesheet" href="/styles/userHome.css">
+<div class="navbar">
+<h1>Tech Talk with Favas</h1>
+<a href="/user/logout">
+<button class="logout-btn">Logout</button>
+</a>
+</div>
+
+<div class="hero">
+    <div class="hero-content">
+        <h1>Welcome to Favas Linkedin</h1>
+        <p>Follow to stay updated!</p>
+        <button class="subscribe-btn">Follow</button>
+    </div>
+</div>
+
+<script>
+    const logoutBtn = document.querySelector('.logout-btn');
+    logoutBtn.addEventListener('click', () => {
+        window.location.href = '/user/logout';
+    });
+</script>

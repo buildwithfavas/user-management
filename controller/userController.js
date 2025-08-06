@@ -1,3 +1,4 @@
+const session = require('express-session');
 const userSchema = require('../model/userModel');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -19,6 +20,11 @@ const registerUser = async (req, res) => {
     }
 };
 
+const logout = (req, res) => {
+    req.session.user = null;
+    res.redirect('/user/login');
+};
+
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -26,7 +32,8 @@ const login = async (req, res) => {
         if (!user) return res.render('user/login', { message: "User doesn't exist found" });
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.render('user/login', { message: 'Incorrect password' });
-        res.render('user/home', { message: 'Login successful' });
+        req.session.user = true;
+        res.render('user/userHome', { message: 'Login successful' });
     } catch (error) {
         console.error(error);
         res.render('user/login', { message: 'Something went wrong' });
@@ -42,4 +49,16 @@ const loadLogin = (req, res) => {
     res.render('user/login');
 };
 
-module.exports = { registerUser, loadRegister, loadLogin, login };
+const loadHome = (req, res) => {
+    res.render('user/userHome');
+};
+
+
+module.exports = { 
+    registerUser, 
+    loadRegister, 
+    loadLogin, 
+    login,
+    loadHome,
+    logout
+};
