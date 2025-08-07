@@ -7,7 +7,7 @@
     <div class="right-side">
         <form method="post" action="/user/login">
             <input type="text" id="message" value="{{{message}}}" name="message" hidden />
-            <div class="btn-group">
+            {{!-- <div class="btn-group">
                 <button class="btn">
                     <img class="logo"
                         src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/d1c98974-c62d-4071-8bd2-ab859fc5f4e9"
@@ -20,20 +20,20 @@
                         alt="" />
                     <span>Sign in with Apple</span>
                 </button>
-            </div>
+            </div> --}}
 
-            <div class="or">OR</div>
+            {{!-- <div class="or">OR</div> --}}
 
             <label for="email">Email</label>
-            <input id="email" type="text" placeholder="Enter Email" name="email" required />
+            <input id="email" type="text" placeholder="Enter Email" name="email" />
 
             <label for="password">Password</label>
-            <input id="password" type="password" placeholder="Enter Password" name="password" required />
+            <input id="password" type="password" placeholder="Enter Password" name="password" />
 
             <button type="submit" class="login-btn">Sign in</button>
             <div class="links">
                 <a href="#">Forgot password?</a>
-                <a href="#">Do not have an account?</a>
+                <a href="/user/register">Do not have an account?</a>
             </div>
         </form>
     </div>
@@ -54,8 +54,8 @@
 
     function formValidate(e) {
         e.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
         if (!email || !password) {
             swal("All fields are required!");
             return false;

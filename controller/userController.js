@@ -28,6 +28,7 @@ const logout = (req, res) => {
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
+        // console.log(email, password);
         const user = await userSchema.findOne({ email });
         if (!user) return res.render('user/login', { message: "User doesn't exist found" });
         const isMatch = await bcrypt.compare(password, user.password);

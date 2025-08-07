@@ -6,6 +6,11 @@ const path = require('path');
 const connectDb = require('./db/connectDb');
 const session = require('express-session');
 const nocache = require('nocache');
+const hbs = require('hbs');
+hbs.registerHelper('inc', function(value) {
+  return parseInt(value) + 1;
+});
+
 
 app.use(nocache());
 app.use(session({

@@ -6,8 +6,8 @@
     <div class="left-side"></div>
     <div class="right-side">
         <form method="post" action="/user/register">
-        <input type="text" id="message" value="{{{message}}}" name="message" hidden>
-            <div class="btn-group">
+            <input type="text" id="message" value="{{{message}}}" name="message" hidden>
+            {{!-- <div class="btn-group">
                 <button class="btn">
                     <img class="logo"
                         src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/d1c98974-c62d-4071-8bd2-ab859fc5f4e9"
@@ -22,7 +22,7 @@
                 </button>
             </div>
 
-            <div class="or">OR</div>
+            <div class="or">OR</div> --}}
 
             <label for="email">Email</label>
             <input id="email" type="text" placeholder="Enter Email" name="email" />
@@ -49,18 +49,28 @@
     });
 
     const message = document.getElementById('message').value;
-    if(message){
+    if (message) {
         console.log(message);
         swal(message);
     }
 
     function formValidate(e) {
         e.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
+        const email = document.getElementById('email').value.trim().toLowerCase();
+        const password = document.getElementById('password').value.trim();
+        const confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
         if (!email || !password || !confirmPassword) {
             swal("All fields are required!");
+            return false;
+        } else if (!emailRegex.test(email)) {
+            swal("Please enter a valid email address!");
+            return false;
+        } else if (!passwordRegex.test(password)) {
+            swal("Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
             return false;
         } else if (password !== confirmPassword) {
             swal("Passwords do not match!");
@@ -69,5 +79,4 @@
         e.target.submit();
         return true;
     }
-
 </script>
