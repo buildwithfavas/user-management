@@ -42,12 +42,12 @@
     <div class="modal-content">
         <span class="close" onclick="closeAddUserModal()">&times;</span>
         <h2>Add User</h2>
-        <form id="addUserForm" method="post" action="/admin/add-user">
+        <form id="addUserForm" method="post" action="/admin/add-user" onsubmit="return formValidate();">
             <label for="addEmail">Email:</label>
-            <input type="email" id="addEmail" name="email" />
+            <input type="text" id="addEmail" name="email" />
             <label for="addPassword">Password:</label>
             <input type="password" id="addPassword" name="password" />
-            <button type="submit" onclick="return formValidate();" class="modal-btn">Add User</button>
+            <button type="submit" class="modal-btn" >Add User</button>
         </form>
     </div>
 </div>
@@ -77,6 +77,9 @@
     function closeAddUserModal() {
         document.getElementById('addUserModal').style.display = 'none';
     } 
+
+    
+
     
     function openEditUserModal(id, email) {
         document.getElementById('editUserModal').style.display = 'block';
@@ -87,12 +90,21 @@
     function closeEditUserModal() {
         document.getElementById('editUserModal').style.display = 'none';
     } 
-    
+
     function deleteUser(userId) {
-        if (confirm("Are you sure you want to delete this user ? ")) { 
+    swal({
+        title: "Are you sure?",
+        text: "Do you really want to delete this user?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true
+    }).then((willDelete) => {
+        if (willDelete) {
             window.location.href = `/admin/delete-user/${userId}`;
-        } 
-    } 
+        }
+    });
+}
+
     
     function filterUsers() {
         let input = document.getElementById('searchInput').value.toLowerCase(); 
@@ -106,17 +118,13 @@
             }
         });
     }
-    
-    //document.addEventListener('DOMContentLoaded', function () {
-    //    document.querySelector('form').addEventListener('submit', formValidate);
-    //});
 
     function formValidate() {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-        const email = document.getElementById('addEmail').value.trim();
-        const password = document.getElementById('addPassword').value.trim();
+        let email = document.getElementById('addEmail').value.trim();
+        let password = document.getElementById('addPassword').value.trim();
 
         email= email.trim().toLowerCase();
         password = password.trim();
