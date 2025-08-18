@@ -85,9 +85,9 @@ const addUser = async (req, res) => {
     try {
         const { email, password } = req.body;
         const userExists = await userModel.findOne({ email });
-        if (userExists) return res.json({ success: false, message: 'User already exists' });
+        //if (userExists) return res.json({ success: false, message: 'User already exists' });
         //return swal("User already exists");
-        //  return res.render('admin/dashboard', { message: 'User already   exists' });
+        if (userExists) return res.render('admin/dashboard', { message: 'User already exists', users: allUsers });
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new userModel({ email, password: hashedPassword });
         await newUser.save();
