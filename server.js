@@ -34,7 +34,9 @@ app.get('/', (req, res) => {
   send('Hello World!')
 });
 
+//user Routes
 app.use('/user', userRoutes);
+//admin Routes
 app.use('/admin', adminRoutes);
 
 connectDb();
