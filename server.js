@@ -39,6 +39,7 @@ app.use('/user', userRoutes);
 //admin Routes
 app.use('/admin', adminRoutes);
 
+//connect Database
 connectDb();
 
 app.listen(3000, () => {
