@@ -12,7 +12,7 @@ hbs.registerHelper('inc', function(value) {
   return parseInt(value) + 1;
 });
 
-app.use(nocache());
+app.use(nocache());  //for avoid cache creation
 app.use(session({
     secret: 'mysecretkey',
     resave: false,
