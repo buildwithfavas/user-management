@@ -33,7 +33,7 @@ const login = async (req, res) => {
         if (!user) return res.render('user/login', { message: "User doesn't exist found" });
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.render('user/login', { message: 'Incorrect password' });
-        req.session.user = true;
+        req.session.user = email;
         res.render('user/userHome', { message: 'Login successful' });
     } catch (error) {
         console.error(error);
@@ -54,6 +54,10 @@ const loadHome = (req, res) => {
     res.render('user/userHome');
 };
 
+const loadMail = (req, res) => {
+    const emailId = req.session.user;
+    res.render('user/showMail',{emailId: emailId});
+};
 
 module.exports = { 
     registerUser, 
@@ -61,5 +65,6 @@ module.exports = {
     loadLogin, 
     login,
     loadHome,
-    logout
+    logout,
+    loadMail
 };

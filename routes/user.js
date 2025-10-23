@@ -12,4 +12,6 @@ router.post('/register', auth.validateRegister, userController.registerUser);
 router.get('/home', auth.checkSession, userController.loadHome);
 router.get('/logout', auth.checkSession, userController.logout);
 
+router.post('/showMail',auth.checkSession,userController.loadMail);
+
 module.exports = router;
