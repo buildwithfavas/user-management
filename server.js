@@ -1,3 +1,4 @@
+//modules
 const express = require('express');
 const app = express();
 const userRoutes = require('./routes/user');
@@ -12,7 +13,7 @@ hbs.registerHelper('inc', function(value) {
   return parseInt(value) + 1;
 });
 
-app.use(nocache());
+app.use(nocache());  //for avoid cache creation
 app.use(session({
     secret: 'mysecretkey',
     resave: false,
@@ -24,7 +25,7 @@ app.use(session({
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-app.use(express.static('public'));
+app.use(express.static('public')); //static serve file
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -34,11 +35,15 @@ app.use(express.json());
 //   send('Hello World!')
 // });
 
+//user Routes
 app.use('/user', userRoutes);
+//admin Routes
 app.use('/admin', adminRoutes);
 
+//connect Database
 connectDb();
 
+//listen to server on port 3000
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
