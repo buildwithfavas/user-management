@@ -30,15 +30,16 @@ app.use(express.static('public')); //static serve file
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// app.get('/', (req, res) => {
-//   res.
-//   send('Hello World!')
-// });
+app.get('/', (req, res) => {
+  res.
+  send(`For User login go to /user
+    For Admin login go to /admin`)
+});
 
 //user Routes
-app.use('/user', userRoutes);
+app.use('/user/login', userRoutes);
 //admin Routes
-app.use('/admin', adminRoutes);
+app.use('/admin/login', adminRoutes);
 
 //connect Database
 connectDb();
